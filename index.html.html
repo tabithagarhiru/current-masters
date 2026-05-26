@@ -1,0 +1,814 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Current Masters — Water Safety Awareness</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ocean-deep: #043d5d;
+    --ocean-mid: #0a6a8a;
+    --ocean-bright: #1ab2d6;
+    --ocean-pale: #a8e6f5;
+    --foam: #e8f9fd;
+    --sand: #fdf6ed;
+    --sand-dark: #e8d5b0;
+    --gold: #f4a835;
+    --danger: #d64045;
+    --white: #ffffff;
+    --text-dark: #0d2233;
+    --text-mid: #2a5070;
+    --text-light: #6b9ab5;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--sand);
+    color: var(--text-dark);
+    overflow-x: hidden;
+  }
+
+  /* ── NAV ── */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 1rem 2.5rem;
+    background: rgba(4, 61, 93, 0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  .nav-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--white);
+    letter-spacing: 0.02em;
+  }
+  .nav-logo span { color: var(--ocean-bright); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: rgba(255,255,255,0.7);
+    text-decoration: none;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--ocean-bright); }
+  .nav-cta {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--ocean-deep);
+    background: var(--ocean-bright);
+    padding: 0.5rem 1.25rem;
+    border-radius: 100px;
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: background 0.2s, transform 0.15s;
+  }
+  .nav-cta:hover { background: var(--ocean-pale); transform: translateY(-1px); }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    overflow: hidden;
+    background: linear-gradient(180deg, var(--ocean-deep) 0%, var(--ocean-mid) 55%, #0d8fad 78%, #1ab2d6 100%);
+    padding: 7rem 2rem 12rem;
+  }
+
+  /* Floating bubbles */
+  .bubble {
+    position: absolute;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.06);
+    animation: floatBubble linear infinite;
+  }
+  @keyframes floatBubble {
+    0% { transform: translateY(0) scale(1); opacity: 0; }
+    10% { opacity: 1; }
+    90% { opacity: 0.6; }
+    100% { transform: translateY(-110vh) scale(1.2); opacity: 0; }
+  }
+
+  .hero-eyebrow {
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--ocean-bright);
+    background: rgba(26,178,214,0.12);
+    border: 1px solid rgba(26,178,214,0.3);
+    padding: 0.4rem 1.2rem;
+    border-radius: 100px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2.8rem, 7vw, 5.5rem);
+    font-weight: 900;
+    color: var(--white);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    max-width: 800px;
+    margin-bottom: 1.5rem;
+    animation: fadeUp 0.8s 0.15s ease both;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--ocean-bright);
+  }
+
+  .hero-sub {
+    font-size: 1.05rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.75);
+    line-height: 1.7;
+    max-width: 520px;
+    margin-bottom: 2.5rem;
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  .hero-buttons {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    animation: fadeUp 0.8s 0.45s ease both;
+  }
+  .btn-primary {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ocean-deep);
+    background: var(--white);
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 24px rgba(0,0,0,0.2);
+  }
+  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(0,0,0,0.25); }
+  .btn-ghost {
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--white);
+    background: rgba(255,255,255,0.1);
+    border: 1px solid rgba(255,255,255,0.25);
+    padding: 0.85rem 2rem;
+    border-radius: 100px;
+    text-decoration: none;
+    letter-spacing: 0.02em;
+    transition: background 0.2s, transform 0.2s;
+  }
+  .btn-ghost:hover { background: rgba(255,255,255,0.18); transform: translateY(-2px); }
+
+  /* Animated SVG waves */
+  .waves-container {
+    position: absolute;
+    bottom: -2px; left: 0; right: 0;
+    height: 200px;
+    overflow: hidden;
+  }
+  .wave-svg { position: absolute; bottom: 0; width: 200%; }
+  .wave-svg:nth-child(1) { animation: waveMove 7s linear infinite; opacity: 0.5; }
+  .wave-svg:nth-child(2) { animation: waveMove 10s linear infinite reverse; opacity: 0.35; bottom: 8px; }
+  .wave-svg:nth-child(3) { animation: waveMove 13s linear infinite; opacity: 1; bottom: 0; }
+
+  @keyframes waveMove {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+
+  /* Scroll cue */
+  .scroll-cue {
+    position: absolute;
+    bottom: 220px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    animation: fadeUp 1s 0.8s ease both;
+  }
+  .scroll-cue span {
+    font-size: 0.65rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.45);
+  }
+  .scroll-line {
+    width: 1px;
+    height: 40px;
+    background: linear-gradient(to bottom, rgba(255,255,255,0.4), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%,100% { opacity: 0.3; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.15); }
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--white);
+    border-bottom: 1px solid #e5edf2;
+    padding: 2rem 0;
+  }
+  .stats-inner {
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 1.5rem;
+    padding: 0 2rem;
+  }
+  .stat-item { text-align: center; }
+  .stat-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 900;
+    color: var(--ocean-deep);
+    display: block;
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 0.75rem;
+    color: var(--text-light);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-top: 0.35rem;
+    display: block;
+  }
+
+  /* ── SAFETY RULES ── */
+  .safety-section {
+    background: var(--sand);
+    padding: 6rem 2rem;
+  }
+  .section-header {
+    text-align: center;
+    max-width: 580px;
+    margin: 0 auto 4rem;
+  }
+  .section-tag {
+    font-size: 0.7rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ocean-mid);
+    margin-bottom: 0.85rem;
+    display: block;
+  }
+  .section-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+  }
+  .section-desc {
+    font-size: 1rem;
+    color: var(--text-mid);
+    line-height: 1.7;
+  }
+
+  /* Safety rule cards */
+  .rules-grid {
+    max-width: 960px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 1.5rem;
+  }
+
+  .rule-card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 2rem 1.75rem;
+    border: 1px solid #d9eaf2;
+    position: relative;
+    overflow: hidden;
+    opacity: 0;
+    transform: translateY(40px);
+    transition: opacity 0.65s ease, transform 0.65s ease, box-shadow 0.3s;
+  }
+  .rule-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  .rule-card:hover {
+    box-shadow: 0 12px 40px rgba(10, 106, 138, 0.12);
+    transform: translateY(-4px);
+  }
+
+  .rule-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 4px;
+  }
+  .rule-card.rule-1::before { background: var(--ocean-bright); }
+  .rule-card.rule-2::before { background: var(--gold); }
+  .rule-card.rule-3::before { background: var(--danger); }
+  .rule-card.rule-4::before { background: #7ec8a0; }
+  .rule-card.rule-5::before { background: #9b72cf; }
+  .rule-card.rule-6::before { background: var(--ocean-mid); }
+
+  .rule-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.6rem;
+    margin-bottom: 1.25rem;
+  }
+  .rule-card.rule-1 .rule-icon { background: #e0f7fd; }
+  .rule-card.rule-2 .rule-icon { background: #fef6e0; }
+  .rule-card.rule-3 .rule-icon { background: #fdeaea; }
+  .rule-card.rule-4 .rule-icon { background: #e5f7ed; }
+  .rule-card.rule-5 .rule-icon { background: #f0eafd; }
+  .rule-card.rule-6 .rule-icon { background: #e0eef7; }
+
+  .rule-number {
+    font-size: 0.65rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--text-light);
+    margin-bottom: 0.5rem;
+  }
+  .rule-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--text-dark);
+    line-height: 1.3;
+    margin-bottom: 0.75rem;
+  }
+  .rule-desc {
+    font-size: 0.88rem;
+    color: var(--text-mid);
+    line-height: 1.65;
+  }
+
+  /* ── SESSION PLAN ── */
+  .session-section {
+    background: var(--ocean-deep);
+    padding: 6rem 2rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .session-section::before {
+    content: '';
+    position: absolute;
+    top: -80px; left: 0; right: 0;
+    height: 80px;
+    background: var(--sand);
+    clip-path: ellipse(55% 100% at 50% 0%);
+  }
+  .session-section .section-title { color: var(--white); }
+  .session-section .section-tag { color: var(--ocean-pale); }
+  .session-section .section-desc { color: rgba(255,255,255,0.6); }
+
+  .timeline {
+    max-width: 700px;
+    margin: 0 auto;
+    position: relative;
+    padding-left: 2rem;
+  }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 8px;
+    bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, var(--ocean-bright), transparent);
+  }
+
+  .timeline-item {
+    position: relative;
+    padding: 0 0 2.5rem 2rem;
+    opacity: 0;
+    transform: translateX(-24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+  .timeline-item.visible {
+    opacity: 1;
+    transform: translateX(0);
+  }
+  .timeline-dot {
+    position: absolute;
+    left: -5px;
+    top: 6px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: var(--ocean-bright);
+    border: 2px solid var(--ocean-deep);
+    box-shadow: 0 0 0 3px rgba(26,178,214,0.25);
+  }
+  .timeline-time {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ocean-bright);
+    margin-bottom: 0.35rem;
+  }
+  .timeline-name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.4rem;
+  }
+  .timeline-desc {
+    font-size: 0.87rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.6;
+  }
+
+  /* ── PLEDGE SECTION ── */
+  .pledge-section {
+    background: var(--white);
+    padding: 6rem 2rem;
+    text-align: center;
+  }
+  .pledge-card {
+    max-width: 600px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, var(--ocean-deep) 0%, var(--ocean-mid) 100%);
+    border-radius: 28px;
+    padding: 3.5rem 3rem;
+    color: var(--white);
+    opacity: 0;
+    transform: scale(0.94);
+    transition: opacity 0.7s ease, transform 0.7s ease;
+    box-shadow: 0 20px 60px rgba(4,61,93,0.25);
+  }
+  .pledge-card.visible { opacity: 1; transform: scale(1); }
+
+  .pledge-wave-icon {
+    font-size: 2.5rem;
+    margin-bottom: 1.25rem;
+  }
+  .pledge-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.8rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    line-height: 1.2;
+  }
+  .pledge-text {
+    font-size: 1rem;
+    line-height: 1.8;
+    color: rgba(255,255,255,0.8);
+    font-style: italic;
+    margin-bottom: 2rem;
+    border-left: 3px solid var(--ocean-bright);
+    padding-left: 1.25rem;
+    text-align: left;
+  }
+  .pledge-btn {
+    display: inline-block;
+    background: var(--white);
+    color: var(--ocean-deep);
+    font-size: 0.88rem;
+    font-weight: 500;
+    padding: 0.85rem 2.25rem;
+    border-radius: 100px;
+    text-decoration: none;
+    letter-spacing: 0.03em;
+    transition: transform 0.2s, box-shadow 0.2s;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+  }
+  .pledge-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(0,0,0,0.2); }
+
+  /* ── FOOTER ── */
+  footer {
+    background: var(--text-dark);
+    padding: 2.5rem 2rem;
+    text-align: center;
+  }
+  .footer-logo {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--white);
+    margin-bottom: 0.5rem;
+  }
+  .footer-logo span { color: var(--ocean-bright); }
+  .footer-tagline {
+    font-size: 0.78rem;
+    color: rgba(255,255,255,0.4);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 1.5rem;
+  }
+  .footer-contact {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.55);
+    line-height: 1.8;
+  }
+  .footer-contact a { color: var(--ocean-bright); text-decoration: none; }
+
+  /* ── KEYFRAMES ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(24px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ── ACCESSIBILITY ── */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+    .rule-card, .timeline-item, .pledge-card { opacity: 1 !important; transform: none !important; }
+  }
+
+  @media (max-width: 640px) {
+    nav { padding: 1rem 1.25rem; }
+    .nav-links { display: none; }
+    .hero { padding: 6rem 1.5rem 10rem; }
+    .stats-inner { gap: 2rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">Current <span>Masters</span></div>
+  <ul class="nav-links">
+    <li><a href="#safety">Safety Rules</a></li>
+    <li><a href="#session">Our Sessions</a></li>
+    <li><a href="#pledge">Pledge</a></li>
+  </ul>
+  <a href="mailto:currentmasters2@gmail.com" class="nav-cta">Book a Visit</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <!-- Animated bubbles -->
+  <div class="bubble" style="width:18px;height:18px;left:12%;bottom:-20px;animation-duration:9s;animation-delay:0s;"></div>
+  <div class="bubble" style="width:10px;height:10px;left:25%;bottom:-20px;animation-duration:12s;animation-delay:2s;"></div>
+  <div class="bubble" style="width:24px;height:24px;left:40%;bottom:-20px;animation-duration:8s;animation-delay:1s;"></div>
+  <div class="bubble" style="width:14px;height:14px;left:55%;bottom:-20px;animation-duration:11s;animation-delay:3.5s;"></div>
+  <div class="bubble" style="width:20px;height:20px;left:70%;bottom:-20px;animation-duration:9.5s;animation-delay:0.5s;"></div>
+  <div class="bubble" style="width:8px;height:8px;left:83%;bottom:-20px;animation-duration:14s;animation-delay:2.5s;"></div>
+  <div class="bubble" style="width:16px;height:16px;left:92%;bottom:-20px;animation-duration:10s;animation-delay:4s;"></div>
+
+  <div class="hero-eyebrow">Water Safety Awareness Campaign · Kenya</div>
+
+  <h1 class="hero-title">
+    Safe swimmers.<br><em>Saved lives.</em>
+  </h1>
+
+  <p class="hero-sub">
+    We visit schools across Kenya to teach children the water safety knowledge that keeps them alive — because drowning is preventable, and every child deserves to know how.
+  </p>
+
+  <div class="hero-buttons">
+    <a href="#safety" class="btn-primary">Learn the Rules</a>
+    <a href="mailto:currentmasters2@gmail.com" class="btn-ghost">Invite Us to Your School</a>
+  </div>
+
+  <!-- Scroll cue -->
+  <div class="scroll-cue">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+
+  <!-- Layered animated waves -->
+  <div class="waves-container">
+    <!-- Wave 1 - background -->
+    <svg class="wave-svg" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="bottom:0;">
+      <path d="M0,60 C240,100 480,20 720,60 C960,100 1200,20 1440,60 L1440,120 L0,120 Z" fill="#0a6a8a" opacity="0.5"/>
+      <path d="M1440,60 C1200,100 960,20 720,60 C480,100 240,20 0,60 L0,120 L1440,120 Z" fill="#0a6a8a" opacity="0.3"/>
+    </svg>
+    <!-- Wave 2 - mid -->
+    <svg class="wave-svg" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="bottom:10px;">
+      <path d="M0,40 C200,90 400,10 600,50 C800,90 1000,10 1200,50 C1300,70 1380,55 1440,50 L1440,120 L0,120 Z" fill="#0d8fad" opacity="0.4"/>
+      <path d="M1440,40 C1240,90 1040,10 840,50 C640,90 440,10 240,50 C140,70 60,55 0,50 L0,120 L1440,120 Z" fill="#0d8fad" opacity="0.25"/>
+    </svg>
+    <!-- Wave 3 - foreground (sand color) -->
+    <svg class="wave-svg" viewBox="0 0 1440 120" fill="none" xmlns="http://www.w3.org/2000/svg" style="bottom:0;">
+      <path d="M0,70 C180,30 360,90 540,55 C720,20 900,80 1080,50 C1260,20 1380,65 1440,60 L1440,120 L0,120 Z" fill="#fdf6ed"/>
+      <path d="M1440,70 C1260,30 1080,90 900,55 C720,20 540,80 360,50 C180,20 60,65 0,60 L0,120 L1440,120 Z" fill="#fdf6ed" opacity="0.6"/>
+    </svg>
+  </div>
+</section>
+
+<!-- STATS BAR -->
+<section class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat-item">
+      <span class="stat-num" data-count="2400">0</span>
+      <span class="stat-label">Students reached</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="38">0</span>
+      <span class="stat-label">Schools visited</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="45">0</span>
+      <span class="stat-label">Minutes per session</span>
+    </div>
+    <div class="stat-item">
+      <span class="stat-num" data-count="100">0</span>
+      <span class="stat-label">% Free to schools</span>
+    </div>
+  </div>
+</section>
+
+<!-- SAFETY RULES -->
+<section class="safety-section" id="safety">
+  <div class="section-header">
+    <span class="section-tag">The Six Rules of Water Safety</span>
+    <h2 class="section-title">What every child must know before they go near water</h2>
+    <p class="section-desc">These rules save lives. We teach each one in every school we visit — with visuals, stories, and a pledge that students carry home.</p>
+  </div>
+
+  <div class="rules-grid">
+
+    <div class="rule-card rule-1">
+      <div class="rule-icon">🤝</div>
+      <div class="rule-number">Rule 01</div>
+      <h3 class="rule-title">Never swim alone</h3>
+      <p class="rule-desc">Always bring a buddy or swim in a supervised area. Having someone with you means help is always available if something goes wrong.</p>
+    </div>
+
+    <div class="rule-card rule-2">
+      <div class="rule-icon">🎓</div>
+      <div class="rule-number">Rule 02</div>
+      <h3 class="rule-title">Be honest about your ability</h3>
+      <p class="rule-desc">Don't claim you can swim if you cannot. Overconfidence near rivers and dams is one of the leading causes of drowning among young people in Kenya.</p>
+    </div>
+
+    <div class="rule-card rule-3">
+      <div class="rule-icon">🚫</div>
+      <div class="rule-number">Rule 03</div>
+      <h3 class="rule-title">Avoid rivers, dams & unmonitored pools</h3>
+      <p class="rule-desc">These environments are unpredictable. Currents change, depths are hidden, and there is no lifeguard present. Choose monitored pools only.</p>
+    </div>
+
+    <div class="rule-card rule-4">
+      <div class="rule-icon">👁️</div>
+      <div class="rule-number">Rule 04</div>
+      <h3 class="rule-title">Always swim under supervision</h3>
+      <p class="rule-desc">A qualified adult or lifeguard must be present every time you swim — not just nearby, but actively watching. This is non-negotiable.</p>
+    </div>
+
+    <div class="rule-card rule-5">
+      <div class="rule-icon">🆘</div>
+      <div class="rule-number">Rule 05</div>
+      <h3 class="rule-title">Know how to call for help</h3>
+      <p class="rule-desc">Shout clearly, wave your arm, and never dive in to save someone unless you are trained. Throwing a rope or object is often safer.</p>
+    </div>
+
+    <div class="rule-card rule-6">
+      <div class="rule-icon">🌊</div>
+      <div class="rule-number">Rule 06</div>
+      <h3 class="rule-title">Respect the water</h3>
+      <p class="rule-desc">Water does not care how brave or strong you are. Treat it with respect, follow the rules, and swimming becomes one of life's greatest joys.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- SESSION PLAN -->
+<section class="session-section" id="session">
+  <div class="section-header">
+    <span class="section-tag">What we do in schools</span>
+    <h2 class="section-title">A 45-minute session that changes how children think about water</h2>
+    <p class="section-desc">Our certified instructors and lifeguards deliver every session — free of charge, in your hall or classroom.</p>
+  </div>
+
+  <div class="timeline">
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-time">Minutes 0 – 5</div>
+      <h3 class="timeline-name">Introduction & icebreaker</h3>
+      <p class="timeline-desc">A fun quiz — "Who thinks they can swim?" — opens the conversation about confidence vs real skill.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-time">Minutes 5 – 15</div>
+      <h3 class="timeline-name">The dangers of water</h3>
+      <p class="timeline-desc">Real Kenyan examples: rivers, dams, and unmonitored pools. We make the risk real without making it scary.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-time">Minutes 15 – 25</div>
+      <h3 class="timeline-name">The six safety rules</h3>
+      <p class="timeline-desc">Visual posters and group discussion. Children say each rule aloud and explain it in their own words.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-time">Minutes 25 – 35</div>
+      <h3 class="timeline-name">Live demonstration</h3>
+      <p class="timeline-desc">Our instructors use gestures and visuals to show floating technique, rescue calls, and safe behaviour near water.</p>
+    </div>
+
+    <div class="timeline-item">
+      <div class="timeline-dot"></div>
+      <div class="timeline-time">Minutes 35 – 45</div>
+      <h3 class="timeline-name">Pupil pledge & Q&A</h3>
+      <p class="timeline-desc">Each child takes the Water Safety Promise and receives a pledge card to bring home to their family.</p>
+    </div>
+
+  </div>
+</section>
+
+<!-- PLEDGE -->
+<section class="pledge-section" id="pledge">
+  <div class="pledge-card">
+    <div class="pledge-wave-icon">🌊</div>
+    <h2 class="pledge-title">The Water Safety Promise</h2>
+    <p class="pledge-text">
+      I promise to always swim with a buddy, to be honest about my ability, to avoid rivers and dams, and to respect the power of water. I will look out for my friends — and ask for help when I need it.
+    </p>
+    <a href="mailto:currentmasters2@gmail.com" class="pledge-btn">Invite Current Masters to Your School</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">Current <span>Masters</span></div>
+  <div class="footer-tagline">Begin. Believe. Become.</div>
+  <div class="footer-contact">
+    Fredrick Kinyanjui — Head Coach &nbsp;|&nbsp; <a href="tel:+254741770037">0741 770 037</a><br>
+    Fredrick Gacheru — Program Lead &nbsp;|&nbsp; <a href="tel:+254717601320">0717 601 320</a><br>
+    <a href="mailto:currentmasters2@gmail.com">currentmasters2@gmail.com</a>
+  </div>
+</footer>
+
+<script>
+  /* ── Intersection Observer for scroll animations ── */
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        const el = entry.target;
+        const delay = el.dataset.delay || 0;
+        setTimeout(() => el.classList.add('visible'), delay);
+        observer.unobserve(el);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  /* Stagger rule cards */
+  document.querySelectorAll('.rule-card').forEach((card, i) => {
+    card.dataset.delay = i * 110;
+    observer.observe(card);
+  });
+
+  /* Timeline items */
+  document.querySelectorAll('.timeline-item').forEach((item, i) => {
+    item.dataset.delay = i * 130;
+    observer.observe(item);
+  });
+
+  /* Pledge card */
+  document.querySelectorAll('.pledge-card').forEach(el => observer.observe(el));
+
+  /* ── Animated stat counters ── */
+  const countObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      const target = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      const duration = 1800;
+      const startTime = performance.now();
+
+      function update(now) {
+        const elapsed = now - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const eased = 1 - Math.pow(1 - progress, 3);
+        el.textContent = Math.round(eased * target).toLocaleString() + suffix;
+        if (progress < 1) requestAnimationFrame(update);
+      }
+      requestAnimationFrame(update);
+      countObserver.unobserve(el);
+    });
+  }, { threshold: 0.5 });
+
+  document.querySelectorAll('[data-count]').forEach(el => countObserver.observe(el));
+</script>
+</body>
+</html>
